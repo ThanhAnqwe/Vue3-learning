@@ -1,0 +1,17 @@
+textarea{
+    border: 1px solid var(--border-control-normal);
+    height: 98px;
+    border-radius: 4px;
+    width: 100%;
+    padding-left: 12px;
+    padding-top: 8px;
+}
+
+textarea:hover{
+    border: 1px solid var(--border-control-hover);
+}
+
+textarea:focus{
+    border: 1px solid var(--border-control-hover);
+    outline: none;
+}

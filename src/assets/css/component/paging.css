@@ -1,0 +1,30 @@
+.paging{
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+}
+.text__record{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding:12px 0;
+}
+.paging_icon__group > .mi__icon__left{
+    margin-left: 12px;
+    background-color: black !important;
+    opacity: 0.6;
+}
+.paging_icon__group > .mi__icon__right{
+    background-color: black !important;
+    opacity: 0.6;
+}
+.paging_icon__group{
+    display: flex;
+    align-items: center;
+    gap: 0px;
+}
+.paging_icon__group:hover {
+    cursor: pointer;
+}

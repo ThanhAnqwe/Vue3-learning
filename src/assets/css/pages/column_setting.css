@@ -1,0 +1,45 @@
+/* Column setting config */
+
+.column__selection__setting {
+    position: relative;
+} 
+.detail__columns__setting {
+    width: 339px ;
+    height: 301px;
+    right: 0px;
+    background-color: white;
+    position: absolute;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    border: 1px solid black;
+}
+
+.content__wrapper {
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.content__wrapper > input {
+    width: 20px;
+    height: 20px;
+    margin: 5px 10px 5px 10px;
+}
+
+.content__wrapper > div {
+    padding: 5px;
+}
+
+.button__option {
+    position: sticky;
+    bottom: 0px;
+    border-top: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    z-index: 99999;
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+    background-color: #ffffff;
+}

@@ -1,0 +1,17 @@
+/* Nhúng file css dùng chùn  */
+@import url('./pages/form.css');
+@import url('./common.css');
+@import url('./layout.css');
+@import url('./icon.css');
+
+
+/* Nhúng css control */
+@import url('./component/button.css');
+@import url('./component/input.css');
+@import url('./component/paging.css');
+@import url('./component/select.css');
+@import url('./component/table.css');
+@import url('./component/text-area.css');
+@import url('./component/toast.css');
+@import url('./pages/column_setting.css');
+@import url('./component/loading.css');

@@ -1,0 +1,32 @@
+/* Lớp phủ mờ toàn màn hình */
+.loading-overlay {
+  position: fixed; /* Cố định vị trí so với khung hình trình duyệt */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Nền đen mờ 50% */
+  
+  /* Căn giữa loader vào chính giữa màn hình */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Đảm bảo nó luôn nằm trên cùng của tất cả các phần tử khác */
+  z-index: 9999; 
+}
+
+/* Spinner (giữ nguyên logic cũ) */
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db; /* Màu xanh */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

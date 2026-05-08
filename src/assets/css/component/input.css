@@ -1,0 +1,15 @@
+input{
+    border: 1px solid var(--border-control-normal);
+    border-radius: 4px;
+    width: 100%;
+    padding-left: 12px;
+}
+
+input:hover{
+    border: 1px solid var(--border-control-hover);
+}
+
+input:focus{
+    border: 1px solid var(--border-control-hover);
+    outline: none;
+}

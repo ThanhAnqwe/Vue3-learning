@@ -1,0 +1,285 @@
+.candidate__wrapper{
+    background-color: #fff;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(207, 206, 206, 0.1);
+}
+.content__title_right{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.content__button__group > .content__button--add{
+    border-radius: 4px 0 0 4px !important;
+    border-right-color: #1661c2 !important;
+}
+.content__button__group > .content__button--down{
+    border-radius: 0 4px 4px 0 !important;
+}
+.content__button__group{
+    display: flex;
+    align-items: center;
+}
+/* tool grid  */
+.toolbar__grid{
+    display: flex;
+    flex-shrink: 0;
+    margin-bottom: 16px;
+    padding: 16px 18px ;
+    padding-bottom: 0px !important;
+    justify-content: space-between;
+}
+.toolbar__search{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 36px;
+    width: 303px;
+    border: 1px solid #dddde4;
+    background-color: #fff;
+    border-radius: 4px;
+}
+.toolbar__search:focus-within{
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 3px rgba(207, 206, 206, 0.1);
+}
+.toolbar__search-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 36px;
+    width: 303px;
+    border: 1px solid #dddde4;
+    background-color: #fff;
+    border-radius: 4px;
+}
+.toolbar__search-input{
+    border: none !important;
+    outline: none !important;
+    font-size: 14px;
+    width: 100%;
+}
+.toolbar__right{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.toolbar__right > .button__outline{
+    padding: 0 8px !important;
+}
+
+
+/* Custom Table  */
+
+.col__sticky{
+    position: sticky;
+    text-align: center !important;
+}
+.col__checkbox {
+    padding: 0;
+    width: 48px;
+    min-width: 48px;
+    max-width: 48px;
+    height: 48px;
+    text-align: center !important;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+/* Header sticky */
+thead .col__checkbox.col__sticky{
+    left: 0;
+    background: #f9fafb;
+    z-index: 6;
+}
+thead .col__action.col__sticky{
+    right: 0;
+    min-width: 72px;
+    background: #f9fafb;
+    z-index: 6;
+}
+/* Body sticky */
+tbody .col__checkbox.col__sticky{
+    left: 0;
+    background: #fff;
+    z-index: 5;
+}
+tbody .col__action.col__sticky{
+    right: 0;
+    min-width: 72px;
+    background: #fff;
+    z-index: 5;
+}
+.col__checkbox.col__sticky{
+    left: 0;
+}
+td.col__fullname {
+    min-width: 250px;
+    height: 64px;
+    display: flex;
+    align-items: center; 
+    text-align: left;
+    padding: 0 12px;
+}
+.col__fullname > .mi__icon__avatar{
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px;
+    min-height: 24px;
+    background-size: cover !important;
+    background-position: center !important;
+    margin-left: 0px !important;
+    margin-right: 12px !important;
+}
+.fullname__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 12px;
+    height: 40px; 
+}
+.fullname__text__name {
+    font-weight: 500;
+    color: #1a73e8;
+    line-height: 1; /* Ép line-height chặt để không bị chiếm space thừa */
+}
+
+.fullname__text__title {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #48bb56;
+    font-size: 12px;
+    margin-top: 4px;
+    height: 16px; /* Cố định chiều cao nhãn */
+}
+
+.fullname__text__title > .mi__icon__check{
+    background-color: #48bb56;
+}
+.col__phone{
+    min-width: 150px;
+    max-width: 150px;
+}
+.col__email{
+    min-width: 200px;
+    max-width: 200px;
+}
+.col__chiendich{
+    min-width: 200px;
+    max-width: 200px;
+}
+.col__vitri{
+    min-width: 200px;
+    max-width: 200px;
+}
+.col__tintuyendung{
+    min-width: 150px;
+    max-width: 150px;
+}
+.col__vongtuyendung{
+    min-width: 180px;
+    max-width: 180px;
+}
+.col__danhgia{
+    min-width: 120px;
+    max-width: 120px;
+}
+td.col__danhgia{
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+}
+td.col__saodanhgia {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    gap: 4px;
+    height: 64px;
+    padding-bottom: 0 !important;
+}
+.col__ngayungtuyen{
+    min-width: 120px;
+    max-width: 120px;
+}
+.col__nguonungvien{
+    min-width: 150px;
+    max-width: 150px;
+}
+.col__trinhdodaotao{
+    min-width: 100px;
+    max-width: 100px;
+}
+.col__noidaotao{
+    min-width: 150px;
+    max-width: 150px;
+}
+.col__chuyennganh{
+    min-width: 150px;
+    max-width: 150px;
+}
+.col__noilamviecgannhat{
+    min-width: 150px;
+    max-width: 150px;
+}
+.col__nhansukhaithac{
+    min-width: 150px;
+    max-width: 150px;
+}
+.col__donvisd{
+    min-width: 150px;
+    max-width: 150px;
+}
+.col__action{
+    position: sticky;
+    right: 0;
+    min-width: 72px;
+    background: #fff;
+}
+.action__group {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  visibility: hidden;
+}
+tbody tr:hover .action__group {
+  visibility: visible;
+}
+
+.pagination__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #f9fafb;
+    border-top: 1px solid #dddde4;
+}
+
+.pagination__right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.pagination__select {
+    padding: 4px 8px;
+    border: 1px solid #dddde4;
+    border-radius: 4px;
+    margin: 0 8px;
+}
+
+.pagination__nav {
+    display: flex;
+    gap: 8px;
+}
+
+.nav__arrow {
+    cursor: pointer;
+    padding: 4px;
+    color: #666;
+}
+

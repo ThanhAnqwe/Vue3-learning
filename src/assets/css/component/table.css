@@ -1,0 +1,62 @@
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+table td, table th {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+tbody tr:hover {
+    background-color: #e1eeff !important;
+    cursor: pointer;
+}
+tbody tr:hover .col__checkbox.col__sticky {
+    background-color: #e1eeff;
+}
+
+tbody tr:hover .col__action.col__sticky {
+    background-color: #e1eeff;
+}
+td{
+    padding: 8px;
+    border-bottom: 1px solid #e3e1e1;
+}
+.table__wrap {
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+}
+
+.table__wrap table {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+}
+.table__wrap thead th{
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f9fafb;
+}
+thead{
+    background-color: #f9fafb;
+    font-size: 14px;
+    height: 48px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+thead th {
+    padding: 0 12px;
+    text-align: left;
+    border-right: 1px solid #f3f0f0 !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+}
+
+thead th:last-child {
+    border-right: 1px solid #f3f0f0 !important;
+}

@@ -1,0 +1,446 @@
+.mi_icon{}
+.mi_icon::hover{
+    background-color: #2a7efc;
+}
+.mi__icon__web{
+    width: 20px;
+    height: 21px;
+    min-width: 20px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: 0px -608px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #7a8188;
+}
+.mi__icon__web:hover{
+    background-color: #fff;
+}
+.mi__icon__agent{
+    padding-top: 8px;
+
+}
+.mi__icon__recruitment{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -94px -113px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #c5ccd5;
+}
+.mi__icon__candidate{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -24px -112px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #ffffff;
+}
+.mi__icon__calendar{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -144px -113px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #c5ccd5;
+}
+.mi__icon__talent{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: 0px -112px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #c5ccd5;
+}
+.mi__icon__campaign{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -73px -633px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #c5ccd5;
+}
+.mi__icon__task{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -336px -113px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #c5ccd5;
+}
+.mi__icon__marketing{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -160px -248px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #c5ccd5;
+}
+.mi__icon__report{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position:  -72px -113px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #c5ccd5;
+}
+.mi__icon__setting{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: 0px -136px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #c5ccd5;
+}
+.mi__icon__knowledge{ 
+    width: 20px;
+    min-width: 20px;
+    height: 22px;
+    background: url(../icons/icon-knowledge.svg) 0px 0px no-repeat;
+}
+.mi__icon__left{
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -60px -696px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #ffffff;
+}
+.mi__icon__right{
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -40px -696px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #ffffff;
+}
+.mi__icon__notify{
+    background: url(https://amisplatform.misacdn.net/apps/recruit/icon-notification-version.d5e3dc604036ed5b.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 24px;
+    height: 24px;
+}
+.mi__icon__store{
+    height: 20px;
+    aspect-ratio: 1 / 1;
+    background: url(../icons/store.svg) no-repeat center;
+    background-size: 20px 20px;
+    cursor: pointer;
+}
+.mi__icon__user{
+    width: 32px;
+    height: 32px;
+    margin-right: 8px !important;
+    margin-top: 0 !important;
+    border-radius: 16px;
+    background-position: center;
+    background-size: 24px;
+    background-repeat: no-repeat;
+    overflow: unset;
+    cursor: pointer;
+    position: relative;
+    background-image: url(../icons/user.svg);}
+.mi__icon__mess{
+    background-image: url(../icons/mess.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px;
+    position: relative;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.mi__icon__alert{
+    background-image: url(../icons/alert.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px;
+    position: relative;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.mi__icon__help{
+    background-image: url(../icons/help.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px;
+    position: relative;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.mi__icon__more{
+    background-image: url(../icons/more.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px;
+    position: relative;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.mi__icon__avatar{
+    background-image: url(../icons/Avatar.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 32px;
+    position: relative;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    margin-left: 12px;
+    margin-right: 20px
+}
+.mi__icon__switch{
+    background-image: url(../icons/switch.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px;
+    position: relative;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-left: 12px;
+    margin-right: 4px;
+}
+.mi__icon__logo{
+    background-image: url(../icons/logo.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 32px;
+    position: relative;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mi__icon__search{
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position:  -1px -658px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #999;
+    position: absolute;
+    left: 19px;
+    top: 9px;
+}
+
+.mi__icon__delete{
+    width: 17px;
+    height: 16px;
+    min-width: 20px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -222px -658px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #999;
+}
+.mi__icon__check{
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -208px -32px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #48bb56;
+}
+.mi__icon__star{
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -113px -33px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #c5ccd5;
+}
+.mi__icon__checkbox{
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -2px -698px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #999;
+}
+.mi__icon__edit{
+    width: 17px;
+    height: 16px;
+    min-width: 20px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position:  -182px -658px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #999;
+}
+.mi__icon__toolbar__search{
+    background-image: url('../icons/ai-search-candidate.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-width: 24px;
+    height: 24px;
+    animation: spinFFF 20s infinite;
+    margin: 0 10px;
+    position: relative;
+}
+.mi__icon__toolbar__search::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../icons/ai-search-candidate-start.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    animation: inspinFFF 20s infinite;
+}
+.mi__icon__delete__candidate{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    -webkit-mask-image: url('../icons/icon-delete-candidate.svg');
+    -webkit-mask-position: 0px 0px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #999;
+}
+.mi__icon__down{
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -32px -48px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #999;
+}
+.mi__icon__add{
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -20px -656px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #999;
+}
+.mi__icon__filter{
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -40px -656px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #999;
+}
+.mi__icon__export{
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -60px -656px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #999;
+}
+.mi__icon__interactive__history{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: 0 -844px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #999;
+}
+.mi__icon__setting__column{
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position:-24px -608px;
+    -webkit-mask-repeat: no-repeat;
+    background-color: #999;
+}
+.mi__icon__header__close__icon{
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: -73px -136px;
+    -webkit-mask-repeat: no-repeat;
+    width: 22px !important;
+    height: 22px !important;
+    min-width: 22px !important;
+    background-color: #666666;
+    cursor: pointer;
+}
+.mi__icon__education__infor__label{
+    width: 15px;
+    min-width: 15px;
+    height: 15px;
+    background: url('../icons/ICON.svg') -305px -33px no-repeat;
+}
+.mi__icon__add__education{
+    -webkit-mask-position: -369px -705px;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-repeat: no-repeat;
+    background-color: #2680eb;
+    width: 14px;
+    height: 14px;
+    min-width: 14px;
+    cursor: pointer;
+}
+.mi__icon__education__input__dropdown{
+    margin-left: 0px !important;
+    margin-top: 2px !important;
+    width: 16px !important;
+    height: 16px !important;
+    background-color: #212121 !important;
+    -webkit-mask-position: -33px -48px !important;
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-repeat: no-repeat !important
+}
+.mi__icon__checkbox{
+    -webkit-mask-image: url('../icons/ICON.svg');
+    -webkit-mask-position: 0px -696px;
+    -webkit-mask-repeat: no-repeat;
+    display: block;
+    margin: auto;
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 1.5px;
+    border-color: #7a8188;
+    background-color: #7a8188;
+    cursor: pointer;
+}

@@ -1,0 +1,50 @@
+button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;    
+    white-space: nowrap;
+}
+.button__outline{
+    border: 1px solid #d0d5dd;
+    background: #ffffff;
+    background-color: #fff;
+    color: #344054;
+}
+.button__outline:hover {
+  border-color: #0f6cde;
+  color: #0f6cde;
+  background-color: #ffffff;
+}
+.button__outline:hover > [class^="mi__icon__"] {
+    background-color: #0f6cde;
+}
+
+.button__primary{
+    border: 1px solid #0f6cde;
+    background-color: #0f6cde;
+    color: #ffffff;
+}
+
+.button__primary > [class^="mi__icon__"]{
+background-color: #ffffff;
+}
+
+.button__primary:hover{
+background-color: #2b80e6;
+border-color: #2b80e6;
+}
+
+.button__primary:hover > [class^="mi__icon__"]{
+background-color: #ffffff;
+}
+
+.button__primary:focus-visible{
+outline: none;
+box-shadow: 0 0 0 3px rgba(15, 108, 222, 0.24);
+}
