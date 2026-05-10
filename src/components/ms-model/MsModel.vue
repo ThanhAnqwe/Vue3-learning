@@ -37,8 +37,8 @@
 
           <div class="ms-modal__footer">
             <slot name="footer">
-              <MsButton variant="ghost" @click="close">{{ cancelText }}</MsButton>
-              <MsButton variant="primary" :loading="loading" @click="$emit('confirm')">
+              <MsButton type="ghost" @click="close">{{ cancelText }}</MsButton>
+              <MsButton type="primary" :loading="loading" @click="$emit('confirm')">
                 {{ confirmText }}
               </MsButton>
             </slot>
@@ -91,7 +91,7 @@ const slots = useSlots();
 const titleId = useId ? useId() : 'ms-modal-title';
 
 const hasAvatar = computed(() => !!slots.avatar);
-const hasTop = computed(() => !!slots.top); // Kiểm tra xem có truyền slot top không
+const hasTop = computed(() => !!slots.top);
 
 function close() {
   emit('update:modelValue', false);

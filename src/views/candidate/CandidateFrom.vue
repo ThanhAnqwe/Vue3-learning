@@ -1,17 +1,24 @@
 <!-- src/components/candidate/CandidateModal.vue -->
 <template>
-  <MsModel v-model="isOpen" title="Thêm Ứng Viên" :loading="isSaving" @confirm="handleSubmit" @close="$emit('close')">
-
+  <MsModel
+    v-model="isOpen"
+    title="Thêm Ứng Viên"
+    :loading="isSaving"
+    @confirm="handleSubmit"
+    @close="$emit('close')"
+  >
+    <!-- ── Khu vực import CV ── -->
     <template #top>
       <div class="form__content__import__cv">
-      <div class="import__cv__infor">
-        <p class="import-link">Kéo thả hoặc bấm vào đây để tải fie lên</p>
-        <p class="import-note">Chấp nhận file: .pdf, .doc, .docx, .txt, .rtf (Dung lượng tối đa 15MB)</p>
+        <div class="import__cv__infor">
+          <p class="import-link">Kéo thả hoặc bấm vào đây để tải file lên</p>
+          <p class="import-note">Chấp nhận file: .pdf, .doc, .docx, .txt, .rtf (Dung lượng tối đa 15MB)</p>
+        </div>
+        <input type="file" class="import__cv__input" accept=".pdf,.doc,.docx,.txt,.rtf" />
       </div>
-      <input type="file" class="import__cv__input" accept=".pdf,.doc,.docx,.txt,.rtf" />
-    </div>
     </template>
 
+    <!-- ── Avatar ── -->
     <template #avatar>
       <div class="candidate__infor__image">
         <span>Ảnh</span>
@@ -19,109 +26,132 @@
       </div>
     </template>
 
-
-    
+    <!-- ── Form body ── -->
     <div class="candidate__infor__main form-grid">
 
       <!-- Họ và tên -->
-      <div class="form-group full-width">
-        <label class="label__input">Họ và tên <span class="required-star">*</span></label>
-        <input type="text" v-model="newCandidate.fullName" placeholder="Nhập họ và tên..."
-          :class="['candidate__input', { 'input-error': errors.fullName }]">
-        <div class="error-text" v-if="errors.fullName">{{ errors.fullName }}</div>
-      </div>
+      <MsInput
+        v-model="newCandidate.fullName"
+        label="Họ và tên"
+        placeholder="Nhập họ và tên..."
+        :required="true"
+        :error-message="errors.fullName"
+        :full-width="true"
+        @blur="validateField('fullName')"
+        @update:modelValue="clearErrorOnInput('fullName', $event)"
+      />
 
-      <!-- Ngày sinh & Giới tính -->
-      <div class="form-group">
-        <label class="label__input">Ngày sinh</label>
-        <input type="date" v-model="newCandidate.dateOfBirth" class="candidate__input">
-      </div>
-      <div class="form-group">
-        <label class="label__input">Giới tính</label>
-        <select v-model="newCandidate.gender" class="candidate__select">
-          <option value="" disabled hidden>Chọn giới tính</option>
-          <option value="Nam">Nam</option>
-          <option value="Nữ">Nữ</option>
-        </select>
-      </div>
+      <!-- Ngày sinh -->
+      <MsInput
+        v-model="newCandidate.dateOfBirth"
+        label="Ngày sinh"
+        type="date"
+      />
+
+      <!-- Giới tính -->
+      <MsSelect
+        v-model="newCandidate.gender"
+        label="Giới tính"
+        placeholder="Chọn giới tính"
+        :options="genderOptions"
+      />
 
       <!-- Khu vực -->
-      <div class="form-group full-width">
-        <label class="label__input">Khu vực</label>
-        <select v-model="newCandidate.region" class="candidate__select">
-          <option value="" disabled hidden>Chọn khu vực</option>
-          <option value="Hà Nội">Hà Nội</option>
-          <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-        </select>
-      </div>
+      <MsSelect
+        v-model="newCandidate.region"
+        label="Khu vực"
+        placeholder="Chọn khu vực"
+        :options="regionOptions"
+        :full-width="true"
+      />
 
-      <!-- Số điện thoại & Email -->
-      <div class="form-group">
-        <label class="label__input">Số điện thoại <span class="required-star" v-if="errors.phone">*</span></label>
-        <input type="text" v-model="newCandidate.phone" placeholder="Nhập số điện thoại..."
-          :class="['candidate__input', { 'input-error': errors.phone }]">
-        <div class="error-text" v-if="errors.phone">{{ errors.phone }}</div>
-      </div>
-      <div class="form-group">
-        <label class="label__input">Email <span class="required-star" v-if="errors.email">*</span></label>
-        <input type="email" v-model="newCandidate.email" placeholder="Nhập email..."
-          :class="['candidate__input', { 'input-error': errors.email }]">
-        <div class="error-text" v-if="errors.email">{{ errors.email }}</div>
-      </div>
+      <!-- Số điện thoại -->
+      <MsInput
+        v-model="newCandidate.phone"
+        label="Số điện thoại"
+        placeholder="Nhập số điện thoại..."
+        :required="true"
+        :error-message="errors.phone"
+        @blur="validateField('phone')"
+        @update:modelValue="clearErrorOnInput('phone', $event)"
+      />
+
+      <!-- Email -->
+      <MsInput
+        v-model="newCandidate.email"
+        label="Email"
+        type="email"
+        placeholder="Nhập email..."
+        :required="true"
+        :error-message="errors.email"
+        @blur="validateField('email')"
+        @update:modelValue="clearErrorOnInput('email', $event)"
+      />
 
       <!-- Quốc gia -->
-      <div class="form-group full-width">
-        <label class="label__input">Quốc gia</label>
-        <select v-model="newCandidate.nationality" class="candidate__select">
-          <option value="" disabled hidden>Chọn quốc gia</option>
-          <option value="Việt Nam">Việt Nam</option>
-        </select>
-      </div>
+      <MsSelect
+        v-model="newCandidate.nationality"
+        label="Quốc gia"
+        placeholder="Chọn quốc gia"
+        :options="nationalityOptions"
+        :full-width="true"
+      />
 
       <!-- Tỉnh/Thành phố -->
-      <div class="form-group full-width">
-        <label class="label__input">Tỉnh/Thành phố</label>
-        <select v-model="newCandidate.province" class="candidate__select">
-          <option value="" disabled hidden>Chọn tỉnh/thành phố</option>
-          <option value="Hà Nội">Hà Nội</option>
-        </select>
-      </div>
+      <MsSelect
+        v-model="newCandidate.province"
+        label="Tỉnh/Thành phố"
+        placeholder="Chọn tỉnh/thành phố"
+        :options="provinceOptions"
+        :full-width="true"
+      />
 
       <!-- Phường/xã -->
-      <div class="form-group full-width">
-        <label class="label__input">Phường/xã</label>
-        <select v-model="newCandidate.ward" class="candidate__select">
-          <option value="" disabled hidden>Chọn phường/xã</option>
-          <option value="Phường Mỹ Đình 1">Phường Mỹ Đình 1</option>
-          <option value="Phường Dịch Vọng">Phường Dịch Vọng</option>
-        </select>
-      </div>
+      <MsSelect
+        v-model="newCandidate.ward"
+        label="Phường/xã"
+        placeholder="Chọn phường/xã"
+        :options="wardOptions"
+        :full-width="true"
+      />
 
       <!-- Địa chỉ -->
+      <MsInput
+        v-model="newCandidate.address"
+        label="Địa chỉ"
+        placeholder="Nhập địa chỉ..."
+        :full-width="true"
+      />
+
+      <!-- ── Học vấn (layout nhãn nằm ngang — giữ nguyên thiết kế) ── -->
       <div class="form-group full-width">
-        <label class="label__input">Địa chỉ</label>
-        <input type="text" v-model="newCandidate.address" placeholder="Nhập địa chỉ..." class="candidate__input">
-      </div>
-
-      <!-- KHU VỰC HỌC VẤN (Được design nhãn nằm ngang) -->
-      <div class="form-group full-width mt-2">
-        <label class="label__input" style="text-transform: uppercase;">Học vấn</label>
+        <label class="label__section">HỌC VẤN</label>
 
         <div class="education-row">
-          <label class="label__inline">Trình độ đào tạo</label>
-          <input type="text" v-model="newCandidate.educationLevel" placeholder="Nhập trình độ đào tạo..."
-            class="candidate__input">
+          <span class="label__inline">Trình độ đào tạo</span>
+          <MsInput
+            v-model="newCandidate.educationLevel"
+            placeholder="Nhập trình độ đào tạo..."
+            class="education-input"
+          />
         </div>
 
         <div class="education-row">
-          <label class="label__inline">Nơi đào tạo</label>
-          <input type="text" v-model="newCandidate.institution" placeholder="Nhập nơi đào tạo..."
-            class="candidate__input">
+          <span class="label__inline">Nơi đào tạo</span>
+          <MsInput
+            v-model="newCandidate.institution"
+            placeholder="Nhập nơi đào tạo..."
+            class="education-input"
+          />
         </div>
 
         <div class="education-row">
-          <label class="label__inline">Chuyên ngành</label>
-          <input type="text" v-model="newCandidate.major" placeholder="Nhập chuyên ngành..." class="candidate__input">
+          <span class="label__inline">Chuyên ngành</span>
+          <MsInput
+            v-model="newCandidate.major"
+            placeholder="Nhập chuyên ngành..."
+            class="education-input"
+          />
         </div>
 
         <div class="action-link mt-2">+ Thêm học vấn</div>
@@ -130,206 +160,218 @@
       <!-- Divider -->
       <div class="divider full-width"></div>
 
-      <!-- Ngày ứng tuyển & Nguồn ứng tuyển -->
-      <div class="form-group">
-        <label class="label__input">Ngày ứng tuyển</label>
-        <input type="date" v-model="newCandidate.applyDate" class="candidate__input">
-      </div>
-      <div class="form-group">
-        <label class="label__input">Nguồn ứng tuyển</label>
-        <input type="text" v-model="newCandidate.source" placeholder="Nhập nguồn ứng tuyển..." class="candidate__input">
-      </div>
+      <!-- Ngày ứng tuyển -->
+      <MsInput
+        v-model="newCandidate.applyDate"
+        label="Ngày ứng tuyển"
+        type="date"
+      />
 
-      <!-- Nhân sự khai thác & Cộng tác viên -->
-      <div class="form-group">
-        <label class="label__input">Nhân sự khai thác</label>
-        <select v-model="newCandidate.recruiter" class="candidate__select">
-          <option value="" disabled hidden>Chọn nhân sự khai thác</option>
-          <option value="Đặng Thanh Nhàn">Đặng Thanh Nhàn</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="label__input">Cộng tác viên</label>
-        <select v-model="newCandidate.collaborator" class="candidate__select">
-          <option value="" disabled hidden>Chọn cộng tác viên</option>
-          <option value="Đặng Thanh Nhàn">Đặng Thanh Nhàn</option>
-        </select>
-      </div>
+      <!-- Nguồn ứng tuyển -->
+      <MsInput
+        v-model="newCandidate.source"
+        label="Nguồn ứng tuyển"
+        placeholder="Nhập nguồn ứng tuyển..."
+      />
 
-      <!-- Thêm nhanh tham chiếu -->
-      <div class="form-group full-width" style="align-items: flex-start;">
+      <!-- Nhân sự khai thác -->
+      <MsSelect
+        v-model="newCandidate.recruiter"
+        label="Nhân sự khai thác"
+        placeholder="Chọn nhân sự khai thác"
+        :options="recruiterOptions"
+      />
 
+      <!-- Cộng tác viên -->
+      <MsSelect
+        v-model="newCandidate.collaborator"
+        label="Cộng tác viên"
+        placeholder="Chọn cộng tác viên"
+        :options="collaboratorOptions"
+      />
 
-        <p>
-          Thêm nhanh người tham chiếu vào kho ứng viên
-        </p>
+      <!-- Thêm người giới thiệu -->
+      <div class="form-group full-width referrer-group">
+        <p class="referrer-text">Thêm nhanh người tham chiếu vào kho ứng viên</p>
         <div class="action-link">+ Thêm người giới thiệu</div>
-
       </div>
 
       <!-- Nơi làm việc gần đây -->
-      <div class="form-group full-width">
-        <label class="label__input">Nhập nơi làm việc gần đây</label>
-        <input type="text" v-model="newCandidate.lastCompany" placeholder="Nhập nơi làm việc gần đây..."
-          class="candidate__input">
-      </div>
+      <MsInput
+        v-model="newCandidate.lastCompany"
+        label="Nơi làm việc gần đây"
+        placeholder="Nhập nơi làm việc gần đây..."
+        :full-width="true"
+      />
 
       <!-- Kinh nghiệm làm việc -->
-      <div class="form-group" style="align-items: flex-start;">
+      <div class="form-group full-width">
         <div class="action-link">+ Thêm kinh nghiệm làm việc</div>
       </div>
 
-      <div class="form-group full-width">
-        <label class="label__input">Nhập nơi làm việc</label>
-        <input type="text" placeholder="Nhập nơi làm việc..." class="candidate__input">
-      </div>
+      <!-- Nơi làm việc -->
+      <MsInput
+        v-model="newCandidate.workplace"
+        label="Nơi làm việc"
+        placeholder="Nhập nơi làm việc..."
+        :full-width="true"
+      />
 
-      <!-- Thời gian (Flex ngang) -->
+      <!-- Thời gian (date range — giữ layout ngang) -->
       <div class="form-group full-width">
         <label class="label__input">Thời gian</label>
         <div class="date-range">
-          <input type="date" class="candidate__input">
-          <span>-</span>
-          <input type="date" class="candidate__input">
+          <MsInput v-model="newCandidate.workFrom" type="date" />
+          <span class="date-range__sep">-</span>
+          <MsInput v-model="newCandidate.workTo" type="date" />
         </div>
       </div>
 
-      <!-- Vị trí & Mô tả -->
-      <div class="form-group full-width">
-        <label class="label__input">Vị trí công việc</label>
-        <input type="text" v-model="newCandidate.position" placeholder="Nhập vị trí công việc..."
-          class="candidate__input">
-      </div>
-      <div class="form-group full-width">
-        <label class="label__input">Mô tả công việc</label>
-        <textarea v-model="newCandidate.description" placeholder="Nhập mô tả công việc..."
-          class="candidate__textarea"></textarea>
-      </div>
+      <!-- Vị trí công việc -->
+      <MsInput
+        v-model="newCandidate.position"
+        label="Vị trí công việc"
+        placeholder="Nhập vị trí công việc..."
+        :full-width="true"
+      />
+
+      <!-- Mô tả công việc -->
+      <MsInput
+        v-model="newCandidate.description"
+        label="Mô tả công việc"
+        type="textarea"
+        placeholder="Nhập mô tả công việc..."
+        :full-width="true"
+        :rows="4"
+      />
+
     </div>
-
-
   </MsModel>
-
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import MsButton from '../../components/ms-button/MsButton.vue';
-import MsModel from '../../components/ms-model/MsModel.vue';
-const isOpen = ref(true);
-const isSaving = ref(false)
-const props = defineProps({
-  errors: {
-    type: Object,
-    default: () => ({})
-  }
-});
+import MsInput  from '../../components/ms-input/MsInput.vue';
+import MsSelect from '../../components/ms-select/MsSelect.vue';
+import MsModel  from '../../components/ms-model/MsModel.vue';
 
+const isOpen  = ref(true);
+const isSaving = ref(false);
+
+const props = defineProps({
+  errors: { type: Object, default: () => ({}) }
+});
 const emit = defineEmits(['close', 'save']);
 
-const initialCandidateData = {
-  fullName: '', dateOfBirth: '', gender: '', region: '', phone: '', email: '',
-  nationality: '', province: '', ward: '', address: '',
-  educationLevel: '', institution: '', major: '', applyDate: '', source: '',
-  recruiter: '', collaborator: '', lastCompany: '', position: '', description: ''
+//Options data
+const genderOptions = [
+  { value: 'Nam', label: 'Nam' },
+  { value: 'Nữ',  label: 'Nữ'  },
+];
+const regionOptions = [
+  { value: 'Hà Nội',      label: 'Hà Nội'      },
+  { value: 'Hồ Chí Minh', label: 'Hồ Chí Minh' },
+];
+const nationalityOptions = [
+  { value: 'Việt Nam', label: 'Việt Nam' },
+];
+const provinceOptions = [
+  { value: 'Hà Nội', label: 'Hà Nội' },
+];
+const wardOptions = [
+  { value: 'Phường Mỹ Đình 1', label: 'Phường Mỹ Đình 1' },
+  { value: 'Phường Dịch Vọng', label: 'Phường Dịch Vọng' },
+];
+const recruiterOptions = [
+  { value: 'Đặng Thanh Nhàn', label: 'Đặng Thanh Nhàn' },
+];
+const collaboratorOptions = [
+  { value: 'Đặng Thanh Nhàn', label: 'Đặng Thanh Nhàn' },
+];
+
+//New candidate data
+const initialData = {
+  fullName: '', dateOfBirth: '', gender: '', region: '',
+  phone: '', email: '', nationality: '', province: '', ward: '',
+  address: '', educationLevel: '', institution: '', major: '',
+  applyDate: '', source: '', recruiter: '', collaborator: '',
+  lastCompany: '', workplace: '', workFrom: '', workTo: '',
+  position: '', description: '',
+};
+const newCandidate = ref({ ...initialData });
+
+
+//validate
+const validateRules = {
+  fullName: (v) => {
+    if (!v?.trim()) return 'Họ và tên không được để trống';
+    if (v.trim().length < 2) return 'Họ và tên phải có ít nhất 2 ký tự';
+    return '';
+  },
+  phone: (v) => {
+    if (!v?.trim()) return 'Số điện thoại không được để trống';
+    if (!/^[0-9]{9,11}$/.test(v.trim())) return 'Số điện thoại không hợp lệ (9-11 chữ số)';
+    return '';
+  },
+  email: (v) => {
+    if (!v?.trim()) return 'Email không được để trống';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())) return 'Email không đúng định dạng';
+    return '';
+  },
 };
 
-const newCandidate = ref({ ...initialCandidateData });
+// errors object — dùng reactive để binding 2 chiều với MsInput
+const errors = ref({ ...props.errors });
+
+/**
+ * Validate 1 field khi blur.
+ * @param {string} field
+ */
+const validateField = (field) => {
+  const rule = validateRules[field];
+  if (!rule) return;
+  errors.value[field] = rule(newCandidate.value[field]);
+};
+
+/**
+ * Clear lỗi ngay khi người dùng nhập lại và dữ liệu đã hợp lệ.
+ * @param {string} field
+ * @param {string} value
+ */
+const clearErrorOnInput = (field, value) => {
+  if (!errors.value[field]) return; // chưa có lỗi thì bỏ qua
+  const rule = validateRules[field];
+  if (rule && rule(value) === '') {
+    errors.value[field] = '';
+  }
+};
+
+/**
+ * Validate toàn bộ form khi ấn Lưu.
+ * Trả về true nếu hợp lệ.
+ */
+const validateAll = () => {
+  let isValid = true;
+  Object.keys(validateRules).forEach((field) => {
+    const msg = validateRules[field](newCandidate.value[field]);
+    errors.value[field] = msg;
+    if (msg) isValid = false;
+  });
+  return isValid;
+};
 
 const handleSubmit = () => {
+  if (!validateAll()) return;
   emit('save', { ...newCandidate.value });
 };
 </script>
 
 <style scoped>
-/* 1. LAYOUT POPUP CƠ BẢN VÀ STICKY FOOTER */
-.form__popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.form__popup__wrap {
-  background-color: #fff;
-  border-radius: 8px;
-  width: 700px;
-  max-height: 90vh;
-  /* Giới hạn chiều cao popup */
-  display: flex;
-  flex-direction: column;
-  /* Quan trọng để tách Body và Footer */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-}
-
-.form__popup__title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 24px;
-}
-
-.form__header__title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #111827;
-}
-
-.form__popup__content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 24px;
-}
-
-
-.form__popup__footer {
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
-
-.form__footer__wrap {
-  padding-top: 12px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-}
-
-.label__input {
-  display: block;
-  font-weight: 700;
-  color: #111827;
-  font-size: 14px;
-  margin-bottom: 8px;
-  text-align: left;
-}
-
-.required-star {
-  color: #dc3545;
-}
-
-.error-text {
-  color: #dc3545;
-  font-size: 12px;
-  margin-top: 4px;
-}
-
-.input-error {
-  border-color: #dc3545 !important;
-}
-
-/* 3. GRID LAYOUT (Bảng) */
+/*region grid layout*/
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* Chia 2 cột đều nhau */
   gap: 16px 24px;
-  /* Khoảng cách hàng 16px, cột 24px */
 }
 
 .form-group {
@@ -339,56 +381,80 @@ const handleSubmit = () => {
 
 .full-width {
   grid-column: span 2;
-  /* Ép thẻ div chiếm trọn cả 2 cột */
 }
 
-/* --- FORMAT KHU VỰC HỌC VẤN --- */
+/*region label content*/
+.label__section {
+  display: block;
+  font-weight: 700;
+  font-size: 13px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+/* Dùng cho label nằm ngang trong education-row */
+.label__input {
+  display: block;
+  font-weight: 700;
+  color: #111827;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
 .education-row {
   display: flex;
-  flex-direction: row;
   align-items: center;
+  gap: 12px;
   margin-top: 12px;
 }
 
 .label__inline {
+  flex-shrink: 0;
   width: 150px;
-  /* Cố định độ rộng nhãn bên trái */
   font-weight: 700;
   font-size: 14px;
   color: #111827;
 }
 
-.education-row .candidate__input {
+.education-input {
   flex: 1;
-  /* Input tự động co giãn phần trống còn lại */
+  min-width: 0
 }
 
-/* 4. CÁC THÀNH PHẦN KHÁC[cite: 14, 15] */
-.candidate__input,
-.candidate__select {
-  width: 100%;
-  height: 36px;
-  padding: 0 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
+.date-range {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.date-range > * {
+  flex: 1;
+  min-width: 0;
+}
+
+.date-range__sep {
+  flex-shrink: 0;
+  color: #6b7280;
   font-size: 14px;
-  outline: none;
 }
 
-.candidate__input:focus,
-.candidate__select:focus {
-  border-color: #2680eb;
+.divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 4px 0;
 }
 
-.candidate__textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
+.referrer-group {
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.referrer-text {
   font-size: 14px;
-  outline: none;
-  resize: vertical;
-  min-height: 80px;
+  color: #374151;
+  margin: 0;
 }
 
 .action-link {
@@ -399,33 +465,7 @@ const handleSubmit = () => {
   display: inline-block;
 }
 
-.mt-2 {
-  margin-top: 8px;
-}
-
-.checkbox-inline {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.divider {
-  height: 1px;
-  background-color: #e5e7eb;
-  margin: 8px 0;
-}
-
-.date-range {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.date-range input {
-  flex: 1;
-}
+.mt-2 { margin-top: 8px; }
 
 .form__content__import__cv {
   border: 1px dashed #c5ccd5;
@@ -451,20 +491,12 @@ const handleSubmit = () => {
 
 .import__cv__input {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   opacity: 0;
   cursor: pointer;
 }
 
-.form__content__candidate__infor {
-  display: flex;
-  gap: 24px;
-}
-
-/* Cột avatar — chính là hình tròn */
+/* avatar */
 .candidate__infor__image {
   flex-shrink: 0;
   width: 56px;
@@ -500,31 +532,5 @@ const handleSubmit = () => {
   opacity: 0;
   cursor: pointer;
   border-radius: 50%;
-}
-
-/* NÚT BẤM[cite: 14] */
-.btn-cancel {
-  padding: 0 16px;
-  height: 36px;
-  border: none;
-  background-color: transparent;
-  color: #374151;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.btn-save {
-  padding: 0 24px;
-  height: 36px;
-  border: none;
-  background-color: #2680eb;
-  color: #fff;
-  font-weight: 500;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn-save:hover {
-  background-color: #1d68c1;
 }
 </style>
