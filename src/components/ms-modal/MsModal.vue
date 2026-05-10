@@ -2,13 +2,8 @@
   <Teleport to="body">
     <Transition name="ms-modal">
       <div v-if="modelValue" class="ms-modal__overlay" @mousedown.self="onOverlayClick">
-        <div
-          class="ms-modal__wrap"
-          :style="{ width: width + 'px' }"
-          role="dialog"
-          aria-modal="true"
-          :aria-labelledby="titleId"
-        >
+        <div class="ms-modal__wrap" :style="{ width: width + 'px' }" role="dialog" aria-modal="true"
+          :aria-labelledby="titleId">
 
           <div class="ms-modal__header">
             <slot name="header">
@@ -38,7 +33,7 @@
           <div class="ms-modal__footer">
             <slot name="footer">
               <MsButton type="ghost" @click="close">{{ cancelText }}</MsButton>
-              <MsButton type="primary" :loading="loading" @click="$emit('confirm')">
+              <MsButton :type="confirmType" :loading="loading" @click="$emit('confirm')">
                 {{ confirmText }}
               </MsButton>
             </slot>
@@ -70,6 +65,10 @@ const props = defineProps({
   confirmText: {
     type: String,
     default: 'Lưu',
+  },
+  confirmType: {
+    type: String,
+    default: 'primary', // primary | danger | ghost
   },
   cancelText: {
     type: String,
@@ -104,7 +103,6 @@ function onOverlayClick() {
 </script>
 
 <style scoped>
-
 .ms-modal__overlay {
   position: fixed;
   inset: 0;
@@ -155,6 +153,7 @@ function onOverlayClick() {
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
 }
+
 .ms-modal__close:hover {
   background: #f3f4f6;
   color: #111827;
@@ -165,7 +164,7 @@ function onOverlayClick() {
   overflow-y: auto;
   padding: 24px;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   gap: 24px;
 }
 
@@ -208,6 +207,7 @@ function onOverlayClick() {
 .ms-modal-leave-active {
   transition: opacity 0.2s ease;
 }
+
 .ms-modal-enter-active .ms-modal__wrap,
 .ms-modal-leave-active .ms-modal__wrap {
   transition: transform 0.2s ease, opacity 0.2s ease;
@@ -217,6 +217,7 @@ function onOverlayClick() {
 .ms-modal-leave-to {
   opacity: 0;
 }
+
 .ms-modal-enter-from .ms-modal__wrap,
 .ms-modal-leave-to .ms-modal__wrap {
   transform: translateY(-12px);

@@ -1,7 +1,6 @@
 <!-- src/views/candidate/CandidateList.vue -->
 <template>
   <MainLayout>
-    <!-- ── Header ── -->
     <div class="content__title__header">
       <div class="content__title_left">Ứng viên</div>
       <div class="content__title_right">
@@ -10,7 +9,7 @@
           <span>Xóa dữ liệu ứng viên không trúng tuyển</span>
         </button>
         <div class="content__button__group">
-          <button class="button__primary content__button--add" @click="isModalVisible = true">
+          <button class="button__primary content__button--add" @click="openAddForm">
             <div class="mi__icon__add"></div>
             <span>Thêm ứng viên</span>
           </button>
@@ -22,35 +21,32 @@
     </div>
 
     <div class="candidate__wrapper">
-      <!-- ── Toolbar ── -->
       <div class="toolbar__grid">
         <div class="toolbar__left">
           <div class="toolbar__search">
             <div class="mi__icon__toolbar__search"></div>
-            <input
-              type="text"
-              class="toolbar__search-input"
-              placeholder="Tìm kiếm hoặc nhờ AI trợ giúp..."
-              v-model="searchText"
-            />
+            <input type="text" class="toolbar__search-input" placeholder="Tìm kiếm hoặc nhờ AI trợ giúp..."
+              v-model="searchText" />
           </div>
         </div>
         <div class="toolbar__right">
-          <button class="button__outline"><div class="mi__icon__filter"></div></button>
-          <button class="button__outline"><div class="mi__icon__export"></div></button>
-          <button class="button__outline"><div class="mi__icon__interactive__history"></div></button>
-          <div class="column__selection__setting">
-            <button class="button__outline"><div class="mi__icon__setting__column"></div></button>
-          </div>
+          <button class="button__outline">
+            <div class="mi__icon__filter"></div>
+          </button>
+          <button class="button__outline">
+            <div class="mi__icon__export"></div>
+          </button>
+          <button class="button__outline">
+            <div class="mi__icon__interactive__history"></div>
+          </button>
+          <button class="button__outline">
+            <div class="mi__icon__setting__column"></div>
+          </button>
         </div>
       </div>
 
-      <!-- ── Table ── -->
       <div class="table__wrap">
-        <!-- Loading overlay -->
-        <div v-if="isLoading" class="table__loading">
-          <span>Đang tải...</span>
-        </div>
+        <div v-if="isLoading" class="table__loading"><span>Đang tải...</span></div>
 
         <table v-else>
           <thead>
@@ -76,11 +72,9 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Empty state -->
             <tr v-if="candidateList.length === 0">
               <td colspan="18" class="table__empty">Không có dữ liệu</td>
             </tr>
-
             <tr v-else v-for="candidate in candidateList" :key="candidate.id">
               <td class="col__checkbox col__sticky"><input type="checkbox" /></td>
               <td class="col__fullname">
@@ -117,7 +111,7 @@
               <td class="col__donvisd">{{ candidate.department }}</td>
               <td class="col__action col__sticky">
                 <div class="action__group">
-                  <div class="mi__icon__edit" title="Sửa" @click="handleEdit(candidate)"></div>
+                  <div class="mi__icon__edit" title="Sửa" @click="openEditForm(candidate)"></div>
                   <div class="mi__icon__delete" title="Xóa" @click="handleDelete(candidate)"></div>
                 </div>
               </td>
@@ -127,105 +121,122 @@
       </div>
     </div>
 
-    <!-- ── Pagination ── -->
-    <Pagination
-      :total="total"
-      v-model:currentPage="currentPage"
-      v-model:pageSize="pageSize"
-    />
+    <Pagination :total="total" v-model:currentPage="currentPage" v-model:pageSize="pageSize" />
 
-    <!-- ── Modal thêm/sửa ── -->
-    <CandidateFrom
-      v-if="isModalVisible"
-      @close="isModalVisible = false"
-      @save="handleSave"
-    />
+    <!-- Form dùng chung thêm/sửa — truyền editData=null thì là mode Thêm -->
+    <CandidateFrom v-if="isModalVisible" :edit-data="selectedCandidate" @close="closeForm" @save="handleSave" />
+
+    <!-- Modal xác nhận xóa -->
+    <MsModal v-model="isDeleteModalVisible" title="Xóa ứng viên" :width="420" confirmText="Xóa" confirmType="danger"
+      cancelText="Hủy" @confirm="confirmDelete" @close="cancelDelete">
+      <p>
+        Xác nhận xóa ứng viên
+        <strong>{{ candidateToDelete?.fullName }}</strong>
+      </p>
+    </MsModal>
   </MainLayout>
 </template>
 
 <script setup>
 import { ref, watch, onMounted } from 'vue';
-import MainLayout    from '../../layouts/MainLayout.vue';
+import MainLayout from '../../layouts/MainLayout.vue';
 import CandidateFrom from './CandidateFrom.vue';
-import Pagination    from '../../components/ms-pagination/MsPagination.vue';
+import Pagination from '../../components/ms-pagination/MsPagination.vue';
+import MsModal from '../../components/ms-modal/MsModal.vue';
 import { getCandidates, createCandidate, updateCandidate, deleteCandidate } from '../../services/CandidateService';
 
-// ─── State ───────────────────────────────────────────────
-const candidateList  = ref([]);
-const total          = ref(0);
-const currentPage    = ref(1);
-const pageSize       = ref(15);
-const searchText     = ref('');
-const isLoading      = ref(false);
+const candidateList = ref([]);
+const total = ref(0);
+const currentPage = ref(1);
+const pageSize = ref(15);
+const searchText = ref('');
+const isLoading = ref(false);
 const isModalVisible = ref(false);
 
-// ─── Fetch data ───────────────────────────────────────────
+//CRUD state
+const selectedCandidate = ref(null);
+const isDeleteModalVisible = ref(false);
+const candidateToDelete = ref(null);
+
+//Fetch data
 const fetchCandidates = async () => {
   isLoading.value = true;
   try {
     const result = await getCandidates({
-      page:   currentPage.value,
-      limit:  pageSize.value,
-      search: searchText.value,
+      page: currentPage.value, limit: pageSize.value, search: searchText.value,
     });
     candidateList.value = result.data;
-    total.value         = result.total;
-  } catch (error) {
-    console.error(error);
+    total.value = result.total;
+  } catch (err) {
+    console.error(err);
   } finally {
     isLoading.value = false;
   }
 };
 
-// Chạy lần đầu khi vào trang
 onMounted(fetchCandidates);
 
-// ─── Watch search — debounce 300ms ────────────────────────
 let debounceTimer = null;
 watch(searchText, () => {
   clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(() => {
-    currentPage.value = 1; // reset trang khi search
-    fetchCandidates();
-  }, 300);
+  debounceTimer = setTimeout(() => { currentPage.value = 1; fetchCandidates(); }, 300);
 });
-
-// ─── Watch phân trang ─────────────────────────────────────
 watch([currentPage, pageSize], fetchCandidates);
 
-// ─── CRUD handlers ────────────────────────────────────────
+//Form
 
-/**
- * Thêm hoặc sửa — dùng chung 1 form
- * Sau khi lưu xong, fetch lại danh sách để đồng bộ với server
- */
-const handleSave = async (candidateData) => {
-  try {
-    await createCandidate(candidateData);
-    isModalVisible.value = false;
-    currentPage.value = 1; // về trang 1 để thấy bản ghi vừa thêm
-    await fetchCandidates();
-  } catch (error) {
-    console.error(error);
-  }
+/** Thêm mới — không truyền data, form rỗng */
+const openAddForm = () => {
+  selectedCandidate.value = null;
+  isModalVisible.value = true;
 };
 
-const handleEdit = (candidate) => {
-  // TODO: mở form với data điền sẵn
-  console.log('Edit:', candidate);
+/** Sửa — truyền data của dòng vào form để điền sẵn */
+const openEditForm = (candidate) => {
+  selectedCandidate.value = { ...candidate }; // spread để tránh mutate trực tiếp
+  isModalVisible.value = true;
+};
+
+const closeForm = () => {
+  isModalVisible.value = false;
+  selectedCandidate.value = null;
+};
+
+// CRUD
+const handleSave = async (candidateData) => {
+  try {
+    if (candidateData.id) {
+      await updateCandidate(candidateData.id, candidateData);
+    } else {
+      await createCandidate(candidateData);
+      currentPage.value = 1;
+    }
+    closeForm();
+    await fetchCandidates();
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const handleDelete = async (candidate) => {
-  // TODO: thay bằng MsConfirmDialog
-  const confirmed = confirm(`Bạn có chắc muốn xóa "${candidate.fullName}"?`);
-  if (!confirmed) return;
+  candidateToDelete.value = candidate;
+  isDeleteModalVisible.value = true;
+};
 
+const confirmDelete = async () => {
   try {
-    await deleteCandidate(candidate.id);
-    await fetchCandidates(); // fetch lại sau khi xóa
-  } catch (error) {
-    console.error(error);
+    await deleteCandidate(candidateToDelete.value.id);
+    isDeleteModalVisible.value = false;
+    candidateToDelete.value = null;
+    await fetchCandidates();
+  } catch (err) {
+    console.error(err);
   }
+};
+
+const cancelDelete = () => {
+  isDeleteModalVisible.value = false;
+  candidateToDelete.value = null;
 };
 </script>
 
@@ -248,12 +259,12 @@ const handleDelete = async (candidate) => {
   gap: 12px;
 }
 
-.content__button__group > .content__button--add {
+.content__button__group>.content__button--add {
   border-radius: 4px 0 0 4px !important;
   border-right-color: #1661c2 !important;
 }
 
-.content__button__group > .content__button--down {
+.content__button__group>.content__button--down {
   border-radius: 0 4px 4px 0 !important;
 }
 
@@ -262,7 +273,6 @@ const handleDelete = async (candidate) => {
   align-items: center;
 }
 
-/* ── Toolbar ── */
 .toolbar__grid {
   display: flex;
   flex-shrink: 0;
@@ -301,13 +311,17 @@ const handleDelete = async (candidate) => {
   gap: 12px;
 }
 
-.toolbar__right > .button__outline {
+.toolbar__right>.button__outline {
   padding: 0 8px !important;
 }
 
-/* ── Table ── */
-tbody tr { height: 64px; }
-tbody td { text-align: left; }
+tbody tr {
+  height: 64px;
+}
+
+tbody td {
+  text-align: left;
+}
 
 .col__sticky {
   position: sticky;
@@ -325,10 +339,31 @@ tbody td { text-align: left; }
   box-sizing: border-box;
 }
 
-thead .col__checkbox.col__sticky { left: 0; background: #f9fafb; z-index: 6; }
-thead .col__action.col__sticky   { right: 0; min-width: 72px; background: #f9fafb; z-index: 6; }
-tbody .col__checkbox.col__sticky { left: 0; background: #fff; z-index: 5; }
-tbody .col__action.col__sticky   { right: 0; min-width: 72px; background: #fff; z-index: 5; }
+thead .col__checkbox.col__sticky {
+  left: 0;
+  background: #f9fafb;
+  z-index: 6;
+}
+
+thead .col__action.col__sticky {
+  right: 0;
+  min-width: 72px;
+  background: #f9fafb;
+  z-index: 6;
+}
+
+tbody .col__checkbox.col__sticky {
+  left: 0;
+  background: #fff;
+  z-index: 5;
+}
+
+tbody .col__action.col__sticky {
+  right: 0;
+  min-width: 72px;
+  background: #fff;
+  z-index: 5;
+}
 
 td.col__fullname {
   min-width: 250px;
@@ -337,47 +372,150 @@ td.col__fullname {
   vertical-align: middle;
 }
 
-.fullname__wrap { display: flex; align-items: center; }
+.fullname__wrap {
+  display: flex;
+  align-items: center;
+}
 
-.fullname__wrap > .mi__icon__avatar {
-  width: 24px !important; height: 24px !important;
-  min-width: 24px; min-height: 24px;
+.fullname__wrap>.mi__icon__avatar {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px;
+  min-height: 24px;
   background-size: cover !important;
   background-position: center !important;
   margin-right: 12px !important;
 }
 
-.fullname__text { display: flex; flex-direction: column; justify-content: center; height: 40px; }
-.fullname__text__name { font-weight: 500; color: #1a73e8; line-height: 1; }
-.fullname__text__title {
-  display: flex; align-items: center; gap: 4px;
-  color: #48bb56; font-size: 12px; margin-top: 4px; height: 16px;
+.fullname__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 40px;
 }
-.fullname__text__title > .mi__icon__check { background-color: #48bb56; }
 
-.col__phone         { min-width: 150px; max-width: 150px; }
-.col__email         { min-width: 200px; max-width: 200px; }
-.col__chiendich     { min-width: 200px; max-width: 200px; }
-.col__vitri         { min-width: 200px; max-width: 200px; }
-.col__tintuyendung  { min-width: 150px; max-width: 150px; }
-.col__vongtuyendung { min-width: 180px; max-width: 180px; }
-.col__ngayungtuyen  { min-width: 120px; max-width: 200px; }
-.col__nguonungvien  { min-width: 150px; max-width: 150px; }
-.col__trinhdodaotao { min-width: 100px; max-width: 200px; }
-.col__noidaotao     { min-width: 150px; max-width: 150px; }
-.col__chuyennganh   { min-width: 150px; max-width: 150px; }
-.col__noilamviecgannhat { min-width: 150px; max-width: 200px; }
-.col__nhansukhaithac { min-width: 150px; max-width: 150px; }
-.col__donvisd       { min-width: 150px; max-width: 150px; }
+.fullname__text__name {
+  font-weight: 500;
+  color: #1a73e8;
+  line-height: 1;
+}
 
-td.col__saodanhgia  { vertical-align: middle; padding-bottom: 0 !important; }
-.rating-wrap { display: flex; justify-content: center; align-items: center; gap: 4px; min-height: 24px; }
+.fullname__text__title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #48bb56;
+  font-size: 12px;
+  margin-top: 4px;
+  height: 16px;
+}
 
-.col__action { position: sticky; right: 0; min-width: 72px; background: #fff; }
-.action__group { display: flex; justify-content: center; gap: 8px; visibility: hidden; cursor: pointer; }
-tbody tr:hover .action__group { visibility: visible; }
+.fullname__text__title>.mi__icon__check {
+  background-color: #48bb56;
+}
 
-/* ── Loading ── */
+.col__phone {
+  min-width: 150px;
+  max-width: 150px;
+}
+
+.col__email {
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.col__chiendich {
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.col__vitri {
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.col__tintuyendung {
+  min-width: 150px;
+  max-width: 150px;
+}
+
+.col__vongtuyendung {
+  min-width: 180px;
+  max-width: 180px;
+}
+
+.col__ngayungtuyen {
+  min-width: 120px;
+  max-width: 200px;
+}
+
+.col__nguonungvien {
+  min-width: 150px;
+  max-width: 150px;
+}
+
+.col__trinhdodaotao {
+  min-width: 100px;
+  max-width: 200px;
+}
+
+.col__noidaotao {
+  min-width: 150px;
+  max-width: 150px;
+}
+
+.col__chuyennganh {
+  min-width: 150px;
+  max-width: 150px;
+}
+
+.col__noilamviecgannhat {
+  min-width: 150px;
+  max-width: 200px;
+}
+
+.col__nhansukhaithac {
+  min-width: 150px;
+  max-width: 150px;
+}
+
+.col__donvisd {
+  min-width: 150px;
+  max-width: 150px;
+}
+
+td.col__saodanhgia {
+  vertical-align: middle;
+  padding-bottom: 0 !important;
+}
+
+.rating-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  min-height: 24px;
+}
+
+.col__action {
+  position: sticky;
+  right: 0;
+  min-width: 72px;
+  background: #fff;
+}
+
+.action__group {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  visibility: hidden;
+  cursor: pointer;
+}
+
+tbody tr:hover .action__group {
+  visibility: visible;
+}
+
 .table__loading {
   display: flex;
   align-items: center;
@@ -387,7 +525,6 @@ tbody tr:hover .action__group { visibility: visible; }
   font-size: 14px;
 }
 
-/* ── Empty ── */
 .table__empty {
   text-align: center;
   padding: 60px;

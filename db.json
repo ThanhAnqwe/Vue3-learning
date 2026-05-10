@@ -1,7 +1,7 @@
 {
   "candidates": [
     {
-      "id": 1,
+      "id": "1",
       "fullName": "Bùi Hải Nam",
       "dateOfBirth": "1992-04-17",
       "gender": "Nam",
@@ -33,7 +33,7 @@
       "department": "Phòng Dữ liệu"
     },
     {
-      "id": 2,
+      "id": "2",
       "fullName": "Dương Thùy Dung",
       "dateOfBirth": "1991-12-25",
       "gender": "Nữ",
@@ -65,7 +65,7 @@
       "department": "Phòng Marketing"
     },
     {
-      "id": 3,
+      "id": "3",
       "fullName": "Trần Đình Khoa",
       "dateOfBirth": "1992-12-13",
       "gender": "Nam",
@@ -97,7 +97,7 @@
       "department": "Phòng Tài chính"
     },
     {
-      "id": 4,
+      "id": "4",
       "fullName": "Nguyễn Thanh Hà",
       "dateOfBirth": "1996-05-24",
       "gender": "Nữ",
@@ -129,7 +129,7 @@
       "department": "Phòng Vận hành"
     },
     {
-      "id": 5,
+      "id": "5",
       "fullName": "Trần Văn An",
       "dateOfBirth": "1997-11-20",
       "gender": "Nam",
@@ -161,7 +161,7 @@
       "department": "Phòng Tài chính"
     },
     {
-      "id": 6,
+      "id": "6",
       "fullName": "Đỗ Minh Tuấn",
       "dateOfBirth": "2000-06-18",
       "gender": "Nam",
@@ -193,7 +193,7 @@
       "department": "Phòng Sản phẩm"
     },
     {
-      "id": 7,
+      "id": "7",
       "fullName": "Ngô Đức Thắng",
       "dateOfBirth": "2000-07-18",
       "gender": "Nam",
@@ -225,7 +225,7 @@
       "department": "Phòng Nhân sự"
     },
     {
-      "id": 8,
+      "id": "8",
       "fullName": "Nguyễn Thu Hương",
       "dateOfBirth": "2000-10-02",
       "gender": "Nữ",
@@ -257,7 +257,7 @@
       "department": "Phòng Tài chính"
     },
     {
-      "id": 9,
+      "id": "9",
       "fullName": "Phạm Thu Hương",
       "dateOfBirth": "2000-12-27",
       "gender": "Nữ",
@@ -289,7 +289,7 @@
       "department": "Phòng Nhân sự"
     },
     {
-      "id": 10,
+      "id": "10",
       "fullName": "Trần Việt Hùng",
       "dateOfBirth": "1990-01-28",
       "gender": "Nam",
@@ -321,7 +321,7 @@
       "department": "Phòng Nhân sự"
     },
     {
-      "id": 11,
+      "id": "11",
       "fullName": "Vũ Thanh Long",
       "dateOfBirth": "1997-12-21",
       "gender": "Nam",
@@ -353,7 +353,7 @@
       "department": "Phòng Dữ liệu"
     },
     {
-      "id": 12,
+      "id": "12",
       "fullName": "Hồ Thanh Thảo",
       "dateOfBirth": "1993-10-02",
       "gender": "Nữ",
@@ -385,7 +385,7 @@
       "department": "Phòng Vận hành"
     },
     {
-      "id": 13,
+      "id": "13",
       "fullName": "Đỗ Hải Nam",
       "dateOfBirth": "1997-10-14",
       "gender": "Nam",
@@ -417,7 +417,7 @@
       "department": "Phòng Kỹ thuật"
     },
     {
-      "id": 14,
+      "id": "14",
       "fullName": "Hồ Việt Hùng",
       "dateOfBirth": "1991-11-07",
       "gender": "Nam",
@@ -449,7 +449,7 @@
       "department": "Phòng Sản phẩm"
     },
     {
-      "id": 15,
+      "id": "15",
       "fullName": "Lê Hoài Anh",
       "dateOfBirth": "1992-11-28",
       "gender": "Nữ",
@@ -481,7 +481,7 @@
       "department": "Phòng Tài chính"
     },
     {
-      "id": 16,
+      "id": "16",
       "fullName": "Hoàng Khánh Ly",
       "dateOfBirth": "1999-11-28",
       "gender": "Nữ",
@@ -513,7 +513,7 @@
       "department": "Phòng Nhân sự"
     },
     {
-      "id": 17,
+      "id": "17",
       "fullName": "Đặng Hải Nam",
       "dateOfBirth": "1992-08-01",
       "gender": "Nam",
@@ -545,7 +545,7 @@
       "department": "Phòng Kỹ thuật"
     },
     {
-      "id": 18,
+      "id": "18",
       "fullName": "Lý Hữu Nghĩa",
       "dateOfBirth": "1990-10-05",
       "gender": "Nam",
@@ -577,7 +577,7 @@
       "department": "Phòng Kinh doanh"
     },
     {
-      "id": 19,
+      "id": "19",
       "fullName": "Đặng Diệu Linh",
       "dateOfBirth": "2000-04-26",
       "gender": "Nữ",
@@ -609,7 +609,7 @@
       "department": "Phòng Nhân sự"
     },
     {
-      "id": 20,
+      "id": "20",
       "fullName": "Phạm Hữu Nghĩa",
       "dateOfBirth": "1998-04-11",
       "gender": "Nam",
@@ -641,7 +641,7 @@
       "department": "Phòng Kinh doanh"
     },
     {
-      "id": 21,
+      "id": "21",
       "fullName": "Huỳnh Ngọc Ánh",
       "dateOfBirth": "1999-12-07",
       "gender": "Nữ",
@@ -673,7 +673,7 @@
       "department": "Phòng Kỹ thuật"
     },
     {
-      "id": 22,
+      "id": "22",
       "fullName": "Dương Hải Nam",
       "dateOfBirth": "1992-12-13",
       "gender": "Nam",
@@ -705,7 +705,7 @@
       "department": "Phòng Nhân sự"
     },
     {
-      "id": 23,
+      "id": "23",
       "fullName": "Đặng Bảo Châu",
       "dateOfBirth": "1992-06-23",
       "gender": "Nam",
@@ -737,7 +737,7 @@
       "department": "Phòng Tài chính"
     },
     {
-      "id": 24,
+      "id": "24",
       "fullName": "Lý Trọng Khang",
       "dateOfBirth": "1996-03-26",
       "gender": "Nam",
@@ -769,7 +769,7 @@
       "department": "Phòng Dữ liệu"
     },
     {
-      "id": 25,
+      "id": "25",
       "fullName": "Vũ Mỹ Linh",
       "dateOfBirth": "1994-04-01",
       "gender": "Nữ",
@@ -801,7 +801,7 @@
       "department": "Phòng Marketing"
     },
     {
-      "id": 26,
+      "id": "26",
       "fullName": "Bùi Đình Khoa",
       "dateOfBirth": "1995-06-01",
       "gender": "Nam",
@@ -833,7 +833,7 @@
       "department": "Phòng Dữ liệu"
     },
     {
-      "id": 27,
+      "id": "27",
       "fullName": "Hồ Quỳnh Anh",
       "dateOfBirth": "1992-11-17",
       "gender": "Nữ",
@@ -865,7 +865,7 @@
       "department": "Phòng Sản phẩm"
     },
     {
-      "id": 28,
+      "id": "28",
       "fullName": "Hồ Bảo Châu",
       "dateOfBirth": "1996-06-11",
       "gender": "Nam",
@@ -897,7 +897,7 @@
       "department": "Phòng Dữ liệu"
     },
     {
-      "id": 29,
+      "id": "29",
       "fullName": "Phan Thanh Hà",
       "dateOfBirth": "1998-02-04",
       "gender": "Nữ",
@@ -929,7 +929,7 @@
       "department": "Phòng Dữ liệu"
     },
     {
-      "id": 30,
+      "id": "30",
       "fullName": "Đặng Mỹ Linh",
       "dateOfBirth": "1995-07-16",
       "gender": "Nữ",
@@ -961,7 +961,7 @@
       "department": "Phòng Vận hành"
     },
     {
-      "id": 31,
+      "id": "31",
       "fullName": "Võ Thanh Thảo",
       "dateOfBirth": "1998-10-27",
       "gender": "Nữ",
@@ -993,7 +993,7 @@
       "department": "Phòng Kinh doanh"
     },
     {
-      "id": 32,
+      "id": "32",
       "fullName": "Đỗ Anh Dũng",
       "dateOfBirth": "1994-05-25",
       "gender": "Nam",
@@ -1025,7 +1025,7 @@
       "department": "Phòng Marketing"
     },
     {
-      "id": 33,
+      "id": "33",
       "fullName": "Hoàng Trọng Khang",
       "dateOfBirth": "2000-12-20",
       "gender": "Nam",
@@ -1057,7 +1057,7 @@
       "department": "Phòng Marketing"
     },
     {
-      "id": 34,
+      "id": "34",
       "fullName": "Dương Tiến Đạt",
       "dateOfBirth": "1999-04-04",
       "gender": "Nam",
@@ -1089,7 +1089,7 @@
       "department": "Phòng Tài chính"
     },
     {
-      "id": 35,
+      "id": "35",
       "fullName": "Võ Thanh Long",
       "dateOfBirth": "2000-08-15",
       "gender": "Nam",
@@ -1121,7 +1121,7 @@
       "department": "Phòng Kinh doanh"
     },
     {
-      "id": 36,
+      "id": "36",
       "fullName": "Hoàng Quang Huy",
       "dateOfBirth": "1992-06-02",
       "gender": "Nam",
@@ -1153,7 +1153,7 @@
       "department": "Phòng Nhân sự"
     },
     {
-      "id": 37,
+      "id": "37",
       "fullName": "Lý Phương Linh",
       "dateOfBirth": "1997-01-12",
       "gender": "Nữ",
@@ -1185,7 +1185,7 @@
       "department": "Phòng Sản phẩm"
     },
     {
-      "id": 38,
+      "id": "38",
       "fullName": "Phạm Thu Trang",
       "dateOfBirth": "1998-12-10",
       "gender": "Nữ",
@@ -1217,7 +1217,7 @@
       "department": "Phòng Nhân sự"
     },
     {
-      "id": 39,
+      "id": "39",
       "fullName": "Dương Thanh Long",
       "dateOfBirth": "1996-02-17",
       "gender": "Nam",
@@ -1247,38 +1247,7 @@
       "rating": 3,
       "showTitle": true,
       "department": "Phòng Kinh doanh"
-    },
-    {
-      "id": 40,
-      "fullName": "Bùi Bảo Châu",
-      "dateOfBirth": "1990-04-10",
-      "gender": "Nam",
-      "region": "Miền Nam",
-      "phone": "0949734649",
-      "email": "user10@gmail.com",
-      "nationality": "Việt Nam",
-      "province": "Vũng Tàu",
-      "ward": "Phường Bến Nghé",
-      "address": "Số 131 đường Cầu Giấy",
-      "educationLevel": "Đại học",
-      "institution": "Đại học Ngoại thương",
-      "major": "Quản trị kinh doanh",
-      "applyDate": "2025-10-17",
-      "source": "Referral",
-      "recruiter": "Phạm Thu Trang",
-      "collaborator": "Nguyễn Thị Bưởi",
-      "lastCompany": "Tiki",
-      "workplace": "Tiki - Tòa nhà Tech 5",
-      "workFrom": "2017-12-01",
-      "workTo": "2021-11-31",
-      "position": "Project Manager",
-      "description": "Xây dựng API và tích hợp hệ thống.",
-      "campaign": "Tuyển dụng cuối năm",
-      "jobPosting": "Tin tuyển dụng #040",
-      "round": "Offer",
-      "rating": 1,
-      "showTitle": true,
-      "department": "Phòng Kỹ thuật"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
