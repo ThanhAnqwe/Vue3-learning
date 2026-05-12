@@ -121,7 +121,7 @@ const props = defineProps({
 });
 
 // ─── Emits ───────────────────────────────────────────────
-const emit = defineEmits(['update:modelValue', 'blur', 'change']);
+const emit = defineEmits(['update:modelValue', 'blur']);
 
 // ─── State ───────────────────────────────────────────────
 const isFocused = ref(false);

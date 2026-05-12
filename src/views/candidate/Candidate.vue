@@ -39,9 +39,7 @@
           <button class="button__outline">
             <div class="mi__icon__interactive__history"></div>
           </button>
-          <button class="button__outline">
-            <div class="mi__icon__setting__column"></div>
-          </button>
+          <MsColumnSetting :columns="allColumns" v-model:visibleColumns="visibleColumns" />
         </div>
       </div>
 
@@ -52,22 +50,25 @@
           <thead>
             <tr>
               <th class="col__checkbox col__sticky"><input type="checkbox" /></th>
-              <th class="col__fullname">Họ và tên</th>
-              <th class="col__phone">Số điện thoại</th>
-              <th class="col__email">Email</th>
-              <th class="col__chiendich">Chiến dịch tuyển dụng</th>
-              <th class="col__vitri">Vị trí tuyển dụng</th>
-              <th class="col__tintuyendung">Tin tuyển dụng</th>
-              <th class="col__vongtuyendung">Vòng tuyển dụng</th>
-              <th class="col__danhgia">Đánh giá</th>
-              <th class="col__ngayungtuyen">Ngày ứng tuyển</th>
-              <th class="col__nguonungvien">Nguồn ứng viên</th>
-              <th class="col__trinhdodaotao">Trình độ đào tạo</th>
-              <th class="col__noidaotao">Nơi đào tạo</th>
-              <th class="col__chuyennganh">Chuyên ngành</th>
-              <th class="col__noilamviecgannhat">Nơi làm việc gần nhất</th>
-              <th class="col__nhansukhaithac">Nhân sự khai thác</th>
-              <th class="col__donvisd">Đơn vị sử dụng</th>
+              <th v-show="visibleColumns.includes('fullName')" class="col__fullname">Họ và tên</th>
+              <th v-show="visibleColumns.includes('phone')" class="col__phone">
+                Số điện thoại
+              </th>
+              <th v-show="visibleColumns.includes('email')" class="col__email">Email</th>
+              <th v-show="visibleColumns.includes('campaign')" class="col__chiendich">Chiến dịch tuyển dụng</th>
+              <th v-show="visibleColumns.includes('position')" class="col__vitri">Vị trí tuyển dụng</th>
+              <th v-show="visibleColumns.includes('jobPosting')" class="col__tintuyendung">Tin tuyển dụng</th>
+              <th v-show="visibleColumns.includes('round')" class="col__vongtuyendung">Vòng tuyển dụng</th>
+              <th v-show="visibleColumns.includes('rating')" class="col__danhgia">Đánh giá</th>
+              <th v-show="visibleColumns.includes('applyDate')" class="col__ngayungtuyen">Ngày ứng tuyển</th>
+              <th v-show="visibleColumns.includes('source')" class="col__nguonungvien">Nguồn ứng viên</th>
+              <th v-show="visibleColumns.includes('educationLevel')" class="col__trinhdodaotao">Trình độ đào tạo</th>
+              <th v-show="visibleColumns.includes('institution')" class="col__noidaotao">Nơi đào tạo</th>
+              <th v-show="visibleColumns.includes('major')" class="col__chuyennganh">Chuyên ngành</th>
+              <th v-show="visibleColumns.includes('lastCompany')" class="col__noilamviecgannhat">Nơi làm việc gần nhất
+              </th>
+              <th v-show="visibleColumns.includes('recruiter')" class="col__nhansukhaithac">Nhân sự khai thác</th>
+              <th v-show="visibleColumns.includes('department')" class="col__donvisd">Đơn vị sử dụng</th>
               <th class="col__action col__sticky"></th>
             </tr>
           </thead>
@@ -77,7 +78,7 @@
             </tr>
             <tr v-else v-for="candidate in candidateList" :key="candidate.id">
               <td class="col__checkbox col__sticky"><input type="checkbox" /></td>
-              <td class="col__fullname">
+              <td v-show="visibleColumns.includes('fullName')" class="col__fullname">
                 <div class="fullname__wrap">
                   <div class="mi__icon__avatar"></div>
                   <div class="fullname__text">
@@ -90,25 +91,32 @@
                   </div>
                 </div>
               </td>
-              <td class="col__phone">{{ candidate.phone }}</td>
-              <td class="col__email">{{ candidate.email }}</td>
-              <td class="col__chiendich">{{ candidate.campaign }}</td>
-              <td class="col__vitri">{{ candidate.position }}</td>
-              <td class="col__tintuyendung">{{ candidate.jobPosting }}</td>
-              <td class="col__vongtuyendung">{{ candidate.round }}</td>
-              <td class="col__saodanhgia">
+              <td v-show="visibleColumns.includes('phone')" class="col__phone">
+                {{ candidate.phone }}
+              </td>
+              <td v-show="visibleColumns.includes('email')" class="col__email">{{ candidate.email }}</td>
+              <td v-show="visibleColumns.includes('campaign')" class="col__chiendich">{{ candidate.campaign }}</td>
+              <td v-show="visibleColumns.includes('position')" class="col__vitri">{{ candidate.position }}</td>
+              <td v-show="visibleColumns.includes('jobPosting')" class="col__tintuyendung">{{ candidate.jobPosting }}
+              </td>
+              <td v-show="visibleColumns.includes('round')" class="col__vongtuyendung">{{ candidate.round }}</td>
+              <td v-show="visibleColumns.includes('rating')" class="col__saodanhgia">
                 <div class="rating-wrap">
                   <div class="mi__icon__star" v-for="n in candidate.rating" :key="n"></div>
                 </div>
               </td>
-              <td class="col__ngayungtuyen">{{ candidate.applyDate }}</td>
-              <td class="col__nguonungvien">{{ candidate.source }}</td>
-              <td class="col__trinhdodaotao">{{ candidate.educationLevel }}</td>
-              <td class="col__noidaotao">{{ candidate.institution }}</td>
-              <td class="col__chuyennganh">{{ candidate.major }}</td>
-              <td class="col__noilamviecgannhat">{{ candidate.lastCompany }}</td>
-              <td class="col__nhansukhaithac">{{ candidate.recruiter }}</td>
-              <td class="col__donvisd">{{ candidate.department }}</td>
+              <td v-show="visibleColumns.includes('applyDate')" class="col__ngayungtuyen">{{ candidate.applyDate }}</td>
+              <td v-show="visibleColumns.includes('source')" class="col__nguonungvien">{{ candidate.source }}</td>
+              <td v-show="visibleColumns.includes('educationLevel')" class="col__trinhdodaotao">{{
+                candidate.educationLevel }}</td>
+              <td v-show="visibleColumns.includes('institution')" class="col__noidaotao">{{ candidate.institution }}
+              </td>
+              <td v-show="visibleColumns.includes('major')" class="col__chuyennganh">{{ candidate.major }}</td>
+              <td v-show="visibleColumns.includes('lastCompany')" class="col__noilamviecgannhat">{{
+                candidate.lastCompany }}</td>
+              <td v-show="visibleColumns.includes('recruiter')" class="col__nhansukhaithac">{{ candidate.recruiter }}
+              </td>
+              <td v-show="visibleColumns.includes('department')" class="col__donvisd">{{ candidate.department }}</td>
               <td class="col__action col__sticky">
                 <div class="action__group">
                   <div class="mi__icon__edit" title="Sửa" @click="openEditForm(candidate)"></div>
@@ -143,20 +151,26 @@ import MainLayout from '../../layouts/MainLayout.vue';
 import CandidateFrom from './CandidateFrom.vue';
 import Pagination from '../../components/ms-pagination/MsPagination.vue';
 import MsModal from '../../components/ms-modal/MsModal.vue';
+import MsColumnSetting from '../../components/ms-column-setting/MsColumnSetting.vue';
 import { getCandidates, createCandidate, updateCandidate, deleteCandidate } from '../../services/CandidateService';
+import { useToast } from '../../ult/useToast'
+import { CANDIDATE_COLUMNS } from '../../constant/candidate'
+// State toast
+const toast = useToast();
 
+//State paging and searching
 const candidateList = ref([]);
 const total = ref(0);
 const currentPage = ref(1);
 const pageSize = ref(15);
 const searchText = ref('');
 const isLoading = ref(false);
-const isModalVisible = ref(false);
 
 //CRUD state
 const selectedCandidate = ref(null);
 const isDeleteModalVisible = ref(false);
 const candidateToDelete = ref(null);
+const isModalVisible = ref(false);
 
 //Fetch data
 const fetchCandidates = async () => {
@@ -207,14 +221,17 @@ const handleSave = async (candidateData) => {
   try {
     if (candidateData.id) {
       await updateCandidate(candidateData.id, candidateData);
+      toast.success('Cập nhật ứng viên thành công');
     } else {
       await createCandidate(candidateData);
+      toast.success('Thêm ứng viên thành công');
       currentPage.value = 1;
     }
     closeForm();
     await fetchCandidates();
   } catch (err) {
     console.error(err);
+    toast.error('Có lỗi xảy ra, vui lòng thử lại');
   }
 };
 
@@ -226,11 +243,13 @@ const handleDelete = async (candidate) => {
 const confirmDelete = async () => {
   try {
     await deleteCandidate(candidateToDelete.value.id);
+    toast.success(`Đã xóa ứng viên "${candidateToDelete.value.fullName}"`); // ← thêm
     isDeleteModalVisible.value = false;
     candidateToDelete.value = null;
     await fetchCandidates();
   } catch (err) {
     console.error(err);
+    toast.error('Xóa thất bại, vui lòng thử lại'); // ← thêm
   }
 };
 
@@ -238,6 +257,11 @@ const cancelDelete = () => {
   isDeleteModalVisible.value = false;
   candidateToDelete.value = null;
 };
+
+//Column setting
+const allColumns = CANDIDATE_COLUMNS;
+const visibleColumns = ref(allColumns.map(c => c.key))
+
 </script>
 
 <style scoped>

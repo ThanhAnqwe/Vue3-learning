@@ -2,29 +2,32 @@
 
 const BASE_URL = 'http://localhost:3001/candidates';
 
-// ── GET danh sách có phân trang + tìm kiếm ──────────────
+// GET + paging
 export const getCandidates = async ({ page = 1, limit = 15, search = '' } = {}) => {
   const params = new URLSearchParams({
     _page: page,
-    _per_page: limit,   // json-server v1 dùng _per_page thay vì _limit
+    _per_page: limit,
   });
-
-  if (search.trim()) {
-    params.append('q', search.trim());
-  }
+  // console.log(search);
+  
 
   const response = await fetch(`${BASE_URL}?${params}`);
   if (!response.ok) throw new Error('Lỗi khi tải danh sách ứng viên');
 
 
   const json  = await response.json();
-  const data  = json.data  ?? json;
-  const total = json.items ?? data.length; 
+  let data  = json.data  ?? json;
+  let total = json.items ?? data.length; 
 
+   if (search.trim()) {
+    data = data.filter(c =>
+      c.fullName?.toLowerCase().includes(search.trim().toLowerCase())
+    );
+  }
   return { data, total };
 };
 
-// ── POST thêm mới ────────────────────────────────────────
+// Post 
 export const createCandidate = async (candidate) => {
   const response = await fetch(BASE_URL, {
     method: 'POST',
@@ -36,7 +39,7 @@ export const createCandidate = async (candidate) => {
   return response.json();
 };
 
-// ── PUT sửa ─────────────────────────────────────────────
+// PUT
 export const updateCandidate = async (id, candidate) => {
   const response = await fetch(`${BASE_URL}/${id}`, {
     method: 'PUT',
@@ -48,7 +51,7 @@ export const updateCandidate = async (id, candidate) => {
   return response.json();
 };
 
-// ── DELETE xóa ──────────────────────────────────────────
+// DELETE
 export const deleteCandidate = async (id) => {
   const response = await fetch(`${BASE_URL}/${id}`, { method: 'DELETE' });
 

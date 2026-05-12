@@ -46,7 +46,14 @@
         @update:modelValue="clearErrorOnInput('fullName', $event)"
       />
 
-      <MsInput v-model="form.dateOfBirth" label="Ngày sinh" type="date" />
+      <MsInput 
+        v-model="form.dateOfBirth" 
+        label="Ngày sinh" 
+        type="date" 
+        :error-message="errors.dateOfBirth"
+        @blur="validateField('dateOfBirth')"
+        @update:modelValue="clearErrorOnInput('dateOfBirth', $event)"
+      />
 
       <MsSelect
         v-model="form.gender"
@@ -147,7 +154,14 @@
 
       <div class="divider full-width"></div>
 
-      <MsInput v-model="form.applyDate" label="Ngày ứng tuyển" type="date" />
+      <MsInput 
+        v-model="form.applyDate" 
+        label="Ngày ứng tuyển" 
+        type="date" 
+        :error-message="errors.applyDate"
+        @blur="validateField('applyDate')"
+        @update:modelValue="clearErrorOnInput('applyDate', $event)"
+      />
 
       <MsInput
         v-model="form.source"
@@ -224,6 +238,17 @@
 
 <script setup>
 import { ref, computed, watch } from "vue";
+import {
+  GENDER_OPTIONS,
+  REGION_OPTIONS,
+  NATIONALITY_OPTIONS,
+  PROVINCE_OPTIONS,
+  WARD_OPTIONS,
+  RECRUITER_OPTIONS,
+  COLLABORATOR_OPTIONS,
+  SOURCE_OPTIONS,
+  EDUCATION_LEVEL_OPTIONS,
+} from '../../constant/candidate'
 import MsInput from "../../components/ms-input/MsInput.vue";
 import MsSelect from "../../components/ms-select/MsSelect.vue";
 import MsModal from "../../components/ms-modal/MsModal.vue";
@@ -292,71 +317,19 @@ watch(
 );
 
 // Select options
-const genderOptions = [
-  { value: "Nam", label: "Nam" },
-  { value: "Nữ", label: "Nữ" },
-];
-const regionOptions = [
-  { value: "Miền Bắc", label: "Miền Bắc" },
-  { value: "Miền Nam", label: "Miền Nam" },
-  { value: "Miền Trung", label: "Miền Trung" }
-];
-const nationalityOptions = [{ value: "Việt Nam", label: "Việt Nam" }];
-const provinceOptions = [
-  { value: "Hải Phòng", label: "Hải Phòng" },
-  { value: "Hà Nội", label: "Hà Nội" },
-  { value: "Vũng Tàu", label: "Vũng Tàu" },
-  { value: "TP. Hồ Chí Minh", label: "TP. Hồ Chí Minh" },
-  { value: "Đà Nẵng", label: "Đà Nẵng" },
-  { value: "Bình Dương", label: "Bình Dương" },
-  { value: "Nha Trang", label: "Nha Trang" },
-  { value: "Huế", label: "Huế" },
-  { value: "Đồng Nai", label: "Đồng Nai" },
-  { value: "Cần Thơ", label: "Cần Thơ" }
-];
-const wardOptions = [
-  { value: "Phường Dịch Vọng Hậu", label: "Phường Dịch Vọng Hậu" },
-  { value: "Phường Bình Thạnh", label: "Phường Bình Thạnh" },
-  { value: "Phường Bến Nghé", label: "Phường Bến Nghé" },
-  { value: "Phường Phú Nhuận", label: "Phường Phú Nhuận" },
-  { value: "Phường Tân Bình", label: "Phường Tân Bình" },
-  { value: "Phường An Khánh", label: "Phường An Khánh" },
-  { value: "Phường Ô Chợ Dừa", label: "Phường Ô Chợ Dừa" },
-  { value: "Phường Hải Châu", label: "Phường Hải Châu" },
-  { value: "Phường Cầu Giấy", label: "Phường Cầu Giấy" },
-  { value: "Phường Thảo Điền", label: "Phường Thảo Điền" }
-];
-const recruiterOptions = [
-  { value: "Trần Hồng Hạnh", label: "Trần Hồng Hạnh" },
-  { value: "Phạm Thu Trang", label: "Phạm Thu Trang" },
-  { value: "Đặng Thanh Nhàn", label: "Đặng Thanh Nhàn" },
-  { value: "Nguyễn Lan Anh", label: "Nguyễn Lan Anh" },
-  { value: "Lê Bảo Châu", label: "Lê Bảo Châu" }
-];
-const collaboratorOptions = [
-  { value: "Lê Thị Hoa", label: "Lê Thị Hoa" },
-  { value: "Vũ Quang Huy", label: "Vũ Quang Huy" },
-  { value: "Trần Minh Đức", label: "Trần Minh Đức" },
-  { value: "Nguyễn Thị Bưởi", label: "Nguyễn Thị Bưởi" },
-  { value: "Hoàng Thanh Bình", label: "Hoàng Thanh Bình" }
-];
-const sourceOptions = [
-  { value: "IT Viec", label: "IT Viec" },
-  { value: "Website công ty", label: "Website công ty" },
-  { value: "JobStreet", label: "JobStreet" },
-  { value: "TopCV", label: "TopCV" },
-  { value: "Referral", label: "Referral" },
-  { value: "CareerBuilder", label: "CareerBuilder" },
-  { value: "Facebook", label: "Facebook" },
-  { value: "VietnamWorks", label: "VietnamWorks" },
-  { value: "LinkedIn", label: "LinkedIn" }
-];
-const educationLevelOptions = [
-  { value: "Cao đẳng", label: "Cao đẳng" },
-  { value: "Đại học", label: "Đại học" },
-  { value: "Thạc sĩ", label: "Thạc sĩ" }
-];
-// ─── Validate ────────────────────────────────────────────
+const genderOptions = GENDER_OPTIONS;
+const regionOptions = REGION_OPTIONS;
+const nationalityOptions = NATIONALITY_OPTIONS;
+const provinceOptions = PROVINCE_OPTIONS;
+const wardOptions = WARD_OPTIONS;
+const recruiterOptions = RECRUITER_OPTIONS;
+const collaboratorOptions = COLLABORATOR_OPTIONS;
+const sourceOptions = SOURCE_OPTIONS;
+const educationLevelOptions = EDUCATION_LEVEL_OPTIONS;
+
+
+const getTodayString = () => new Date().toISOString().split('T')[0];
+// Validate
 const validateRules = {
   fullName: (v) => {
     if (!v?.trim()) return "Họ và tên không được để trống";
@@ -365,14 +338,22 @@ const validateRules = {
   },
   phone: (v) => {
     if (!v?.trim()) return "Số điện thoại không được để trống";
-    if (!/^[0-9]{9,11}$/.test(v.trim()))
-      return "Số điện thoại không hợp lệ (9-11 chữ số)";
+    if (!/^[0-9]{9,11}$/.test(v.trim())) return "Số điện thoại không hợp lệ (9-11 chữ số)";
     return "";
   },
   email: (v) => {
     if (!v?.trim()) return "Email không được để trống";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()))
-      return "Email không đúng định dạng";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())) return "Email không đúng định dạng";
+    return "";
+  },
+  dateOfBirth: (v) => {
+    if (!v) return "Ngày sinh không được để trống"; 
+    if (v > getTodayString()) return "Ngày sinh không được lớn hơn ngày hiện tại";
+    return "";
+  },
+  applyDate: (v) => {
+    if (!v) return "Ngày ứng tuyển không được để trống"; 
+    if (v > getTodayString()) return "Ngày ứng tuyển không được lớn hơn ngày hiện tại";
     return "";
   },
 };
@@ -401,7 +382,7 @@ const validateAll = () => {
   return isValid;
 };
 
-// ─── Submit ───────────────────────────────────────────────
+// Submit
 const handleSubmit = () => {
   if (!validateAll()) return;
   // Emit toàn bộ form — nếu có id thì List biết là mode sửa
